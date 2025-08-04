@@ -43,7 +43,7 @@ const fetchCpusFromApi = async (): Promise<CPU[]> => {
   const res = await fetch(`${apiUrl}/api/cpus`);
   if (!res.ok) throw new Error("Error al obtener CPUs");
   const data = await res.json();
-  return data.map((item: Record<string, any>) => {
+  return data.map((item: Record<string, unknown>) => {
     const name = typeof item.name === 'string' ? item.name : '';
     const brand = typeof item.manufacturer === 'string' ? item.manufacturer : '';
     const rawData = typeof item.raw_data === 'object' && item.raw_data !== null ? item.raw_data as { price?: number } : undefined;

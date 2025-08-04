@@ -408,28 +408,12 @@ const ComponentsPage = () => {
   const [cases, setCases] = React.useState<Case[]>([]);
   const [coolers, setCoolers] = React.useState<Cooler[]>([]);
 
-  const [loadingCpus, setLoadingCpus] = React.useState(false);
-  const [errorCpus, setErrorCpus] = React.useState<string | null>(null);
-  const [loadingGpus, setLoadingGpus] = React.useState(false);
-  const [errorGpus, setErrorGpus] = React.useState<string | null>(null);
-  const [loadingRams, setLoadingRams] = React.useState(false);
-  const [errorRams, setErrorRams] = React.useState<string | null>(null);
-  const [loadingStorages, setLoadingStorages] = React.useState(false);
-  const [errorStorages, setErrorStorages] = React.useState<string | null>(null);
-  const [loadingMotherboards, setLoadingMotherboards] = React.useState(false);
-  const [errorMotherboards, setErrorMotherboards] = React.useState<string | null>(null);
-  const [loadingPsus, setLoadingPsus] = React.useState(false);
-  const [errorPsus, setErrorPsus] = React.useState<string | null>(null);
-  const [loadingCases, setLoadingCases] = React.useState(false);
-  const [errorCases, setErrorCases] = React.useState<string | null>(null);
-  const [loadingCoolers, setLoadingCoolers] = React.useState(false);
-  const [errorCoolers, setErrorCoolers] = React.useState<string | null>(null);
 
   useEffect(() => {
     document.title = 'Productos - PC Forge';
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     // CPUs
-    setLoadingCpus(true);
+    // setLoadingCpus(true); // Removed unused loading state
     fetch(`${apiUrl}/api/cpus`)
       .then(res => res.ok ? res.json() : Promise.reject())
       .then((data) => {
@@ -460,11 +444,11 @@ const ComponentsPage = () => {
         });
         setCpus(cpus);
       })
-      .catch(() => setErrorCpus('Error al obtener CPUs'))
-      .finally(() => setLoadingCpus(false));
+      // .catch(() => setErrorCpus('Error al obtener CPUs')) // Removed unused error state
+      // .finally(() => setLoadingCpus(false)); // Removed unused loading state
 
     // GPUs
-    setLoadingGpus(true);
+    // setLoadingGpus(true); // Removed unused loading state
     fetch(`${apiUrl}/api/gpus`)
       .then(res => res.ok ? res.json() : Promise.reject())
       .then((data) => {
@@ -495,11 +479,11 @@ const ComponentsPage = () => {
         });
         setGpus(gpus);
       })
-      .catch(() => setErrorGpus('Error al obtener GPUs'))
-      .finally(() => setLoadingGpus(false));
+      // .catch(() => setErrorGpus('Error al obtener GPUs')) // Removed unused error state
+      // .finally(() => setLoadingGpus(false)); // Removed unused loading state
 
     // RAMs
-    setLoadingRams(true);
+    // setLoadingRams(true); // Removed unused loading state
     fetch(`${apiUrl}/api/rams`)
       .then(res => res.ok ? res.json() : Promise.reject())
       .then((data) => {
@@ -530,11 +514,11 @@ const ComponentsPage = () => {
         });
         setRams(rams);
       })
-      .catch(() => setErrorRams('Error al obtener RAMs'))
-      .finally(() => setLoadingRams(false));
+      // .catch(() => setErrorRams('Error al obtener RAMs')) // Removed unused error state
+      // .finally(() => setLoadingRams(false)); // Removed unused loading state
 
     // Storages
-    setLoadingStorages(true);
+    // setLoadingStorages(true); // Removed unused loading state
     fetch(`${apiUrl}/api/storages`)
       .then(res => res.ok ? res.json() : Promise.reject())
       .then((data) => {
@@ -565,11 +549,11 @@ const ComponentsPage = () => {
         });
         setStorages(storages);
       })
-      .catch(() => setErrorStorages('Error al obtener almacenamiento'))
-      .finally(() => setLoadingStorages(false));
+      // .catch(() => setErrorStorages('Error al obtener almacenamiento')) // Removed unused error state
+      // .finally(() => setLoadingStorages(false)); // Removed unused loading state
 
     // Motherboards
-    setLoadingMotherboards(true);
+    // setLoadingMotherboards(true); // Removed unused loading state
     fetch(`${apiUrl}/api/motherboards`)
       .then(res => res.ok ? res.json() : Promise.reject())
       .then((data) => {
@@ -600,11 +584,11 @@ const ComponentsPage = () => {
         });
         setMotherboards(motherboards);
       })
-      .catch(() => setErrorMotherboards('Error al obtener placas base'))
-      .finally(() => setLoadingMotherboards(false));
+      // .catch(() => setErrorMotherboards('Error al obtener placas base')) // Removed unused error state
+      // .finally(() => setLoadingMotherboards(false)); // Removed unused loading state
 
     // PSUs
-    setLoadingPsus(true);
+    // setLoadingPsus(true); // Removed unused loading state
     fetch(`${apiUrl}/api/psus`)
       .then(res => res.ok ? res.json() : Promise.reject())
       .then((data) => {
@@ -633,11 +617,11 @@ const ComponentsPage = () => {
         });
         setPsus(psus);
       })
-      .catch(() => setErrorPsus('Error al obtener fuentes de poder'))
-      .finally(() => setLoadingPsus(false));
+      // .catch(() => setErrorPsus('Error al obtener fuentes de poder')) // Removed unused error state
+      // .finally(() => setLoadingPsus(false)); // Removed unused loading state
 
     // Cases
-    setLoadingCases(true);
+    // setLoadingCases(true); // Removed unused loading state
     fetch(`${apiUrl}/api/cases`)
       .then(res => res.ok ? res.json() : Promise.reject())
       .then((data) => {
@@ -666,11 +650,11 @@ const ComponentsPage = () => {
         });
         setCases(cases);
       })
-      .catch(() => setErrorCases('Error al obtener gabinetes'))
-      .finally(() => setLoadingCases(false));
+      // .catch(() => setErrorCases('Error al obtener gabinetes')) // Removed unused error state
+      // .finally(() => setLoadingCases(false)); // Removed unused loading state
 
     // Coolers
-    setLoadingCoolers(true);
+    // setLoadingCoolers(true); // Removed unused loading state
     fetch(`${apiUrl}/api/coolers`)
       .then(res => res.ok ? res.json() : Promise.reject())
       .then((data) => {
@@ -699,8 +683,8 @@ const ComponentsPage = () => {
         });
         setCoolers(coolers);
       })
-      .catch(() => setErrorCoolers('Error al obtener refrigeración'))
-      .finally(() => setLoadingCoolers(false));
+      // .catch(() => setErrorCoolers('Error al obtener refrigeración')) // Removed unused error state
+      // .finally(() => setLoadingCoolers(false)); // Removed unused loading state
   }, []);
 
   return (

@@ -11,17 +11,6 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import './profile.css';
 
-// Esquemas de validación
-const shippingSchema = z.object({
-  fullName: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
-  phone: z.string().min(10, 'El teléfono debe tener al menos 10 dígitos'),
-  street: z.string().min(5, 'La dirección debe tener al menos 5 caracteres'),
-  colony: z.string().min(2, 'La colonia es requerida'),
-  city: z.string().min(2, 'La ciudad es requerida'),
-  state: z.string().min(2, 'El estado es requerido'),
-  postalCode: z.string().min(5, 'El código postal debe tener al menos 5 dígitos'),
-  country: z.string().min(2, 'El país es requerido'),
-});
 
 const passwordSchema = z.object({
   currentPassword: z.string().min(1, 'La contraseña actual es requerida'),

@@ -579,8 +579,8 @@ const handleConfirmSave = async () => {
     setBuildDescription("");
     router.push('/my-builds');
   } catch (err: unknown) {
-    if (typeof err === 'object' && err !== null && 'message' in err && typeof (err as any).message === 'string') {
-      setSaveError((err as any).message);
+    if (typeof err === 'object' && err !== null && 'message' in err && typeof (err as { message?: string }).message === 'string') {
+      setSaveError((err as { message?: string }).message ?? 'Error desconocido');
     } else {
       setSaveError('Error al guardar');
     }

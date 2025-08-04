@@ -34,7 +34,7 @@ const AdminPage = () => {
       }
     };
     checkAdminAccess();
-  }, [router]);
+  }, [router, logout]);
 
   if (loading) return <div>Cargando...</div>;
   if (!role) return null;
