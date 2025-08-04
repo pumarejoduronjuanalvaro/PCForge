@@ -80,7 +80,7 @@ module.exports = {
         origin: [
             process.env.FRONTEND_URL || 'http://localhost:3000',
             'http://localhost:4000',
-            'https://pc-forge-smoky.vercel.app'
+            process.env.FRONTEND_URL ? process.env.FRONTEND_URL : 'https://pc-forge-woad.vercel.app'
         ],
         credentials: true,
         allowedHeaders: ['Content-Type', 'Authorization'],

@@ -163,12 +163,12 @@ const login = async (req, res) => {
         // Obtener información del usuario para el log y respuesta
         const user = await prisma.user.findUnique({ where: { email }, select: { id: true, username: true, email: true, createdAt: true, role: true, isVerified: true } });
         logSecurityEvent('LOGIN_SUCCESS', user?.id, clientIP, { userAgent, email });
-        // Opciones de cookie seguras (forzar secure: false y sameSite: 'lax' en desarrollo)
+        // Opciones de cookie seguras para cross-domain
         const isProd = process.env.NODE_ENV === 'production';
         const cookieOptions = {
             httpOnly: true,
-            secure: isProd ? true : false,
-            sameSite: isProd ? 'Strict' : 'Lax',
+            secure: true,
+            sameSite: 'None',
             path: '/',
             domain: isProd ? process.env.COOKIE_DOMAIN : undefined
         };
@@ -221,8 +221,8 @@ const logout = async (req, res) => {
         const isProd = process.env.NODE_ENV === 'production';
         const cookieOptions = {
             httpOnly: true,
-            secure: isProd ? true : false,
-            sameSite: isProd ? 'Strict' : 'Lax',
+            secure: true,
+            sameSite: 'None',
             path: '/',
             domain: isProd ? process.env.COOKIE_DOMAIN : undefined
         };
@@ -273,12 +273,13 @@ const refresh = async (req, res) => {
         const { refreshUserToken } = require('../services/auth.service');
         const tokens = await refreshUserToken(refreshToken);
         // Configurar cookies seguras
+        const isProd = process.env.NODE_ENV === 'production';
         const cookieOptions = {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'Strict' : 'Lax',
+            secure: true,
+            sameSite: 'None',
             path: '/',
-            domain: process.env.NODE_ENV === 'production' ? process.env.COOKIE_DOMAIN : undefined
+            domain: isProd ? process.env.COOKIE_DOMAIN : undefined
         };
         // Establecer las nuevas cookies
         res.cookie('accessToken', tokens.accessToken, { ...cookieOptions, maxAge: 15 * 60 * 1000 });
