@@ -60,7 +60,7 @@ const fetchCoolersFromApi = async (): Promise<CPUCooler[]> => {
   return data.map((item: Record<string, unknown>) => {
     const name = typeof item.name === 'string' ? item.name : '';
     const brand = typeof item.manufacturer === 'string' ? item.manufacturer : '';
-    const rawData = typeof item.raw_data === 'object' && item.raw_data !== null ? item.raw_data as { price?: number } : undefined;
+    // const rawData = typeof item.raw_data === 'object' && item.raw_data !== null ? item.raw_data as { price?: number } : undefined; // Removed unused variable
     // const price = item.best_price !== undefined && item.best_price !== null
     //   ? Number(item.best_price)
     //   : (rawData?.price ?? 0); // Removed unused variable
