@@ -66,9 +66,9 @@ module.exports = {
     cookies: {
         httpOnly: true,                     // Prevenir acceso desde JavaScript
         secure: process.env.NODE_ENV === 'production', // Solo HTTPS en producción
-        sameSite: process.env.NODE_ENV === 'production' ? 'Strict' : 'Lax', // Protección CSRF
+        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // Cross-origin seguro
         path: '/',                          // Ruta de las cookies
-        domain: process.env.NODE_ENV === 'production' ? process.env.COOKIE_DOMAIN : undefined,
+        // domain eliminado para cross-origin
         maxAge: {
             accessToken: 15 * 60 * 1000,    // 15 minutos
             refreshToken: 7 * 24 * 60 * 60 * 1000 // 7 días
@@ -98,8 +98,20 @@ module.exports = {
                 defaultSrc: ["'self'"],
                 styleSrc: ["'self'", "'unsafe-inline'"],
                 scriptSrc: ["'self'"],
-                imgSrc: ["'self'", "data:", "https:", "http://localhost:4000", "http://localhost:3000", "https://pcforge-backend.onrender.com", "https://pc-forge-smoky.vercel.app"],
-                connectSrc: ["'self'", process.env.FRONTEND_URL || 'http://localhost:3000', "http://localhost:4000", "https://pc-forge-smoky.vercel.app", "https://pcforge-backend.onrender.com"],
+                imgSrc: [
+                    "'self'", "data:", "https:",
+                    "http://localhost:4000",
+                    "http://localhost:3000",
+                    process.env.FRONTEND_URL || 'https://pc-forge-woad.vercel.app',
+                    "https://pcforge.onrender.com"
+                ],
+                connectSrc: [
+                    "'self'",
+                    process.env.FRONTEND_URL || 'https://pc-forge-woad.vercel.app',
+                    "http://localhost:4000",
+                    "http://localhost:3000",
+                    "https://pcforge.onrender.com"
+                ],
                 fontSrc: ["'self'"],
                 objectSrc: ["'none'"],
                 mediaSrc: ["'self'"],
