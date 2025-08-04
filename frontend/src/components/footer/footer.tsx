@@ -1,6 +1,7 @@
 // components/footer/Footer.tsx
 'use client'
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Instagram, Youtube, Facebook, Linkedin } from 'lucide-react';
 import './footer.css';
@@ -16,10 +17,13 @@ const Footer = () => {
           <div className="footer-brand">
             <div className="brand-logo">
               {/* TODO: Cambiar por <Image /> de next/image para optimización */}
-              <img 
+              <Image 
                 src="/images/Logo.png" 
                 alt="Logo" 
                 className="logo-image"
+                width={120}
+                height={40}
+                priority
               />
             </div>
             <p className="brand-description">

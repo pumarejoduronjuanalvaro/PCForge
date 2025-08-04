@@ -50,20 +50,6 @@ const Profile = () => {
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
 
-  // Formulario de información de envío
-  const shippingForm = useForm({
-    resolver: zodResolver(shippingSchema),
-    defaultValues: {
-      fullName: '',
-      phone: '',
-      street: '',
-      colony: '',
-      city: '',
-      state: '',
-      postalCode: '',
-      country: 'México'
-    }
-  });
 
   // Formulario de cambio de contraseña
   const passwordForm = useForm({

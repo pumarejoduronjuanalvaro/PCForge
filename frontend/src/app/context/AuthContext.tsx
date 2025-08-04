@@ -43,7 +43,6 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
-  const [accessToken] = useState<string | null>(null); // No se usa más accessToken local
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
 

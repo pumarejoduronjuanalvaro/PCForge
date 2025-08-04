@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, User, Settings, LogOut } from 'lucide-react';
 import { useAuth } from '../../app/context/AuthContext';
@@ -57,7 +58,7 @@ const Navbar = () => {
             <div className="navbar-logo">
               <Link href="/" className="logo-link">
                 {/* TODO: Cambiar por <Image /> de next/image para optimización */}
-                <img src="/images/Logo.png" alt="Logo" className="logo-image" />
+                <Image src="/images/Logo.png" alt="Logo" className="logo-image" width={120} height={40} priority />
               </Link>
             </div>
             <div>Cargando...</div>
@@ -74,7 +75,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="navbar-logo">
             <Link href="/" className="logo-link">
-              <img src="/images/Logo.png" alt="Logo" className="logo-image" />
+              <Image src="/images/Logo.png" alt="Logo" className="logo-image" width={120} height={40} priority />
             </Link>
           </div>
 

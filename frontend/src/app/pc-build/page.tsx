@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useMemo, useEffect } from "react"
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '../context/AuthContext';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import "./pc-build.css"
@@ -427,8 +427,10 @@ const [buildModalError, setBuildModalError] = useState<string | null>(null);
       setLoadingComponents(prev => ({ ...prev, [category]: true }));
       fetch(`${apiUrl}${endpoint}`)
         .then(res => res.ok ? res.json() : Promise.reject())
-        .then((data: any[]) => {
-          const mapped: Component[] = data.map((item: Record<string, unknown>) => {
+        .then((data: unknown[]) => {
+          const mapped: Component[] = data
+            .filter((item): item is Record<string, unknown> => typeof item === 'object' && item !== null)
+            .map((item) => {
             const name = typeof item.name === 'string' ? item.name : '';
             const brand = typeof item.manufacturer === 'string' ? item.manufacturer : '';
             const rawData = typeof item.raw_data === 'object' && item.raw_data !== null ? item.raw_data as { price?: number } : undefined;
@@ -540,7 +542,7 @@ const handleConfirmSave = async () => {
   setSaving(true);
   setSaveError(null);
   setBuildModalError(null);
-  const payload: any = {
+  const payload: Record<string, unknown> = {
     name: buildName.trim(),
     description: buildDescription.trim(),
     cpuId: currentBuild.cpu?.id,
@@ -576,8 +578,12 @@ const handleConfirmSave = async () => {
     setBuildName("");
     setBuildDescription("");
     router.push('/my-builds');
-  } catch (err: any) {
-    setSaveError(err.message || 'Error al guardar');
+  } catch (err: unknown) {
+    if (typeof err === 'object' && err !== null && 'message' in err && typeof (err as any).message === 'string') {
+      setSaveError((err as any).message);
+    } else {
+      setSaveError('Error al guardar');
+    }
   } finally {
     setSaving(false);
   }

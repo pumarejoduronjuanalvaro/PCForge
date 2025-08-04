@@ -282,7 +282,7 @@ const PsuPage: React.FC = () => {
                           const url = psu.best_price_url || '';
                           if (url.includes('amazon.')) {
                             return (
-                              <img src="/Amazon_logo.svg" alt="Amazon" width={32} height={32} style={{objectFit:'contain', background:'white', borderRadius:4}} />
+                              <Image src="/Amazon_logo.svg" alt="Amazon" width={32} height={32} style={{objectFit:'contain', background:'white', borderRadius:4}} />
                             );
                           } else if (url.includes('newegg.')) {
                             return (
