@@ -14,7 +14,8 @@ export async function middleware(request: NextRequest) {
   // Si hay accessToken, intentar validarlo
   if (accessToken) {
     try {
-      const response = await fetch('https://pcforge-backend.onrender.com/api/auth/verify', {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') || 'https://pcforge.onrender.com';
+      const response = await fetch(`${apiUrl}/api/auth/verify`, {
         headers: {
           'Authorization': `Bearer ${accessToken.value}`,
           'Cookie': request.headers.get('cookie') || ''
@@ -34,7 +35,8 @@ export async function middleware(request: NextRequest) {
   // Si no hay accessToken válido pero hay refreshToken, intentar renovar
   if (refreshToken) {
     try {
-      const response = await fetch('https://pcforge-backend.onrender.com/api/auth/refresh', {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') || 'https://pcforge.onrender.com';
+      const response = await fetch(`${apiUrl}/api/auth/refresh`, {
         method: 'POST',
         headers: {
           'Cookie': request.headers.get('cookie') || ''
