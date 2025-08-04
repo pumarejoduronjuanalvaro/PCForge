@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useAuth } from '../context/AuthContext';
-import { User, Mail, Calendar, Key, MapPin, Trash2, LogOut, Save, Edit3, X } from 'lucide-react';
+import { User, Mail, Calendar, Key, Trash2, LogOut, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import './profile.css';
@@ -44,7 +44,7 @@ const deleteAccountSchema = z.object({
 const Profile = () => {
   const { user, logout } = useAuth();
   const [activeTab, setActiveTab] = useState('profile');
-  const [isEditing, setIsEditing] = useState(false);
+  // ...existing code...
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [success, setSuccess] = useState('');
@@ -137,24 +137,7 @@ const Profile = () => {
     }
   };
 
-  type ShippingData = z.infer<typeof shippingSchema>;
-  const handleSaveShippingInfo = async (data: ShippingData) => {
-    try {
-      // Aquí iría la lógica para guardar la información de envío
-      console.log('Guardar información de envío:', data);
-      setSuccess('Información de envío guardada exitosamente');
-      setError('');
-      setIsEditing(false);
-    } catch (err) {
-      if (typeof err === 'object' && err !== null && 'response' in err) {
-        const errorObj = err as { response?: { data?: { message?: string } } };
-        setError(errorObj.response?.data?.message || 'Error al guardar la información');
-      } else {
-        setError('Error al guardar la información');
-      }
-      setSuccess('');
-    }
-  };
+  // ...existing code...
 
   const handleLogout = () => {
     logout();

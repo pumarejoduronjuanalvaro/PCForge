@@ -344,7 +344,7 @@ const ComponentCarousel: React.FC<ComponentCarouselProps> = ({ category, compone
                         const url = component.best_price_url || '';
                         if (url.includes('amazon.')) {
                           return (
-                            <img src="/Amazon_logo.svg" alt="Amazon" width={32} height={32} style={{objectFit:'contain'}} />
+                            <Image src="/Amazon_logo.svg" alt="Amazon" width={32} height={32} style={{objectFit:'contain'}} />
                           );
                         } else if (url.includes('newegg.')) {
                           return (
@@ -433,17 +433,31 @@ const ComponentsPage = () => {
     fetch(`${apiUrl}/api/cpus`)
       .then(res => res.ok ? res.json() : Promise.reject())
       .then((data) => {
-        const cpus: CPU[] = data.map((cpu: any) => ({
-          id: cpu.id,
-          name: cpu.name,
-          brand: cpu.manufacturer || "",
-          price: cpu.best_price !== undefined && cpu.best_price !== null ? cpu.best_price : (cpu.raw_data?.price || cpu.tdp || 0),
-          image: `${apiUrl}/images/CPU_IMG/${encodeURIComponent(cpu.name)}.jpg`,
-          rating: cpu.rating || 4.5,
-          cores: cpu.cores_total?.toString() || "-",
-          frequency: cpu.clock_base ? `${cpu.clock_base} GHz` : "-",
-          best_price_url: cpu.best_price_url || "",
-        }));
+        const cpus: CPU[] = data.map((cpu: Record<string, unknown>) => {
+          const id = typeof cpu.id === 'string' ? cpu.id : '';
+          const name = typeof cpu.name === 'string' ? cpu.name : '';
+          const brand = typeof cpu.manufacturer === 'string' ? cpu.manufacturer : '';
+          const best_price = typeof cpu.best_price === 'number' ? cpu.best_price : undefined;
+          const raw_data = typeof cpu.raw_data === 'object' && cpu.raw_data !== null ? cpu.raw_data as { price?: number } : undefined;
+          const tdp = typeof cpu.tdp === 'number' ? cpu.tdp : 0;
+          const price = best_price !== undefined && best_price !== null ? best_price : (raw_data?.price ?? tdp ?? 0);
+          const image = `${apiUrl}/images/CPU_IMG/${encodeURIComponent(name)}.jpg`;
+          const rating = typeof cpu.rating === 'number' ? cpu.rating : 4.5;
+          const cores = cpu.cores_total !== undefined ? String(cpu.cores_total) : '-';
+          const frequency = cpu.clock_base !== undefined ? `${cpu.clock_base} GHz` : '-';
+          const best_price_url = typeof cpu.best_price_url === 'string' ? cpu.best_price_url : '';
+          return {
+            id,
+            name,
+            brand,
+            price,
+            image,
+            rating,
+            cores,
+            frequency,
+            best_price_url,
+          };
+        });
         setCpus(cpus);
       })
       .catch(() => setErrorCpus('Error al obtener CPUs'))
@@ -454,17 +468,31 @@ const ComponentsPage = () => {
     fetch(`${apiUrl}/api/gpus`)
       .then(res => res.ok ? res.json() : Promise.reject())
       .then((data) => {
-        const gpus: GPU[] = data.map((gpu: any) => ({
-          id: gpu.id,
-          name: gpu.name,
-          brand: gpu.manufacturer || "",
-          price: gpu.best_price !== undefined && gpu.best_price !== null ? gpu.best_price : (gpu.raw_data?.price || gpu.tdp || 0),
-          image: `${apiUrl}/images/GPU_IMG/${encodeURIComponent(gpu.name)}.jpg`,
-          rating: gpu.rating || 4.5,
-          memory: gpu.memory || "-",
-          performance: gpu.performance || "-",
-          best_price_url: gpu.best_price_url || "",
-        }));
+        const gpus: GPU[] = data.map((gpu: Record<string, unknown>) => {
+          const id = typeof gpu.id === 'string' ? gpu.id : '';
+          const name = typeof gpu.name === 'string' ? gpu.name : '';
+          const brand = typeof gpu.manufacturer === 'string' ? gpu.manufacturer : '';
+          const best_price = typeof gpu.best_price === 'number' ? gpu.best_price : undefined;
+          const raw_data = typeof gpu.raw_data === 'object' && gpu.raw_data !== null ? gpu.raw_data as { price?: number } : undefined;
+          const tdp = typeof gpu.tdp === 'number' ? gpu.tdp : 0;
+          const price = best_price !== undefined && best_price !== null ? best_price : (raw_data?.price ?? tdp ?? 0);
+          const image = `${apiUrl}/images/GPU_IMG/${encodeURIComponent(name)}.jpg`;
+          const rating = typeof gpu.rating === 'number' ? gpu.rating : 4.5;
+          const memory = typeof gpu.memory === 'string' ? gpu.memory : '-';
+          const performance = typeof gpu.performance === 'string' ? gpu.performance : '-';
+          const best_price_url = typeof gpu.best_price_url === 'string' ? gpu.best_price_url : '';
+          return {
+            id,
+            name,
+            brand,
+            price,
+            image,
+            rating,
+            memory,
+            performance,
+            best_price_url,
+          };
+        });
         setGpus(gpus);
       })
       .catch(() => setErrorGpus('Error al obtener GPUs'))
@@ -475,17 +503,31 @@ const ComponentsPage = () => {
     fetch(`${apiUrl}/api/rams`)
       .then(res => res.ok ? res.json() : Promise.reject())
       .then((data) => {
-        const rams: RAM[] = data.map((ram: any) => ({
-          id: ram.id,
-          name: ram.name,
-          brand: ram.manufacturer || "",
-          price: ram.best_price !== undefined && ram.best_price !== null ? ram.best_price : (ram.raw_data?.price || ram.tdp || 0),
-          image: `${apiUrl}/images/RAM_IMG/${encodeURIComponent(ram.name)}.jpg`,
-          rating: ram.rating || 4.5,
-          capacity: ram.capacity || "-",
-          speed: ram.maxMemorySpeed ? `${ram.maxMemorySpeed} MHz` : "-",
-          best_price_url: ram.best_price_url || "",
-        }));
+        const rams: RAM[] = data.map((ram: Record<string, unknown>) => {
+          const id = typeof ram.id === 'string' ? ram.id : '';
+          const name = typeof ram.name === 'string' ? ram.name : '';
+          const brand = typeof ram.manufacturer === 'string' ? ram.manufacturer : '';
+          const best_price = typeof ram.best_price === 'number' ? ram.best_price : undefined;
+          const raw_data = typeof ram.raw_data === 'object' && ram.raw_data !== null ? ram.raw_data as { price?: number } : undefined;
+          const tdp = typeof ram.tdp === 'number' ? ram.tdp : 0;
+          const price = best_price !== undefined && best_price !== null ? best_price : (raw_data?.price ?? tdp ?? 0);
+          const image = `${apiUrl}/images/RAM_IMG/${encodeURIComponent(name)}.jpg`;
+          const rating = typeof ram.rating === 'number' ? ram.rating : 4.5;
+          const capacity = typeof ram.capacity === 'string' ? ram.capacity : '-';
+          const speed = typeof ram.maxMemorySpeed === 'number' ? `${ram.maxMemorySpeed} MHz` : '-';
+          const best_price_url = typeof ram.best_price_url === 'string' ? ram.best_price_url : '';
+          return {
+            id,
+            name,
+            brand,
+            price,
+            image,
+            rating,
+            capacity,
+            speed,
+            best_price_url,
+          };
+        });
         setRams(rams);
       })
       .catch(() => setErrorRams('Error al obtener RAMs'))
@@ -496,17 +538,31 @@ const ComponentsPage = () => {
     fetch(`${apiUrl}/api/storages`)
       .then(res => res.ok ? res.json() : Promise.reject())
       .then((data) => {
-        const storages: Storage[] = data.map((storage: any) => ({
-          id: storage.id,
-          name: storage.name,
-          brand: storage.manufacturer || "",
-          price: storage.best_price !== undefined && storage.best_price !== null ? storage.best_price : (storage.raw_data?.price || storage.tdp || 0),
-          image: `${apiUrl}/images/STORAGE_IMG/${encodeURIComponent(storage.name)}.jpg`,
-          rating: storage.rating || 4.5,
-          capacity: storage.capacity || "-",
-          type: storage.type || "-",
-          best_price_url: storage.best_price_url || "",
-        }));
+        const storages: Storage[] = data.map((storage: Record<string, unknown>) => {
+          const id = typeof storage.id === 'string' ? storage.id : '';
+          const name = typeof storage.name === 'string' ? storage.name : '';
+          const brand = typeof storage.manufacturer === 'string' ? storage.manufacturer : '';
+          const best_price = typeof storage.best_price === 'number' ? storage.best_price : undefined;
+          const raw_data = typeof storage.raw_data === 'object' && storage.raw_data !== null ? storage.raw_data as { price?: number } : undefined;
+          const tdp = typeof storage.tdp === 'number' ? storage.tdp : 0;
+          const price = best_price !== undefined && best_price !== null ? best_price : (raw_data?.price ?? tdp ?? 0);
+          const image = `${apiUrl}/images/STORAGE_IMG/${encodeURIComponent(name)}.jpg`;
+          const rating = typeof storage.rating === 'number' ? storage.rating : 4.5;
+          const capacity = typeof storage.capacity === 'string' ? storage.capacity : '-';
+          const type = typeof storage.type === 'string' ? storage.type : '-';
+          const best_price_url = typeof storage.best_price_url === 'string' ? storage.best_price_url : '';
+          return {
+            id,
+            name,
+            brand,
+            price,
+            image,
+            rating,
+            capacity,
+            type,
+            best_price_url,
+          };
+        });
         setStorages(storages);
       })
       .catch(() => setErrorStorages('Error al obtener almacenamiento'))
@@ -517,17 +573,31 @@ const ComponentsPage = () => {
     fetch(`${apiUrl}/api/motherboards`)
       .then(res => res.ok ? res.json() : Promise.reject())
       .then((data) => {
-        const motherboards: Motherboard[] = data.map((mb: any) => ({
-          id: mb.id,
-          name: mb.name,
-          brand: mb.manufacturer || "",
-          price: mb.best_price !== undefined && mb.best_price !== null ? mb.best_price : (mb.raw_data?.price || mb.tdp || 0),
-          image: `${apiUrl}/images/MOTHERBOARD_IMG/${encodeURIComponent(mb.name)}.jpg`,
-          rating: mb.rating || 4.5,
-          socket: mb.socket || "-",
-          formFactor: mb.formFactor || "-",
-          best_price_url: mb.best_price_url ? mb.best_price_url : undefined,
-        }));
+        const motherboards: Motherboard[] = data.map((mb: Record<string, unknown>) => {
+          const id = typeof mb.id === 'string' ? mb.id : '';
+          const name = typeof mb.name === 'string' ? mb.name : '';
+          const brand = typeof mb.manufacturer === 'string' ? mb.manufacturer : '';
+          const best_price = typeof mb.best_price === 'number' ? mb.best_price : undefined;
+          const raw_data = typeof mb.raw_data === 'object' && mb.raw_data !== null ? mb.raw_data as { price?: number } : undefined;
+          const tdp = typeof mb.tdp === 'number' ? mb.tdp : 0;
+          const price = best_price !== undefined && best_price !== null ? best_price : (raw_data?.price ?? tdp ?? 0);
+          const image = `${apiUrl}/images/MOTHERBOARD_IMG/${encodeURIComponent(name)}.jpg`;
+          const rating = typeof mb.rating === 'number' ? mb.rating : 4.5;
+          const socket = typeof mb.socket === 'string' ? mb.socket : '-';
+          const formFactor = typeof mb.formFactor === 'string' ? mb.formFactor : '-';
+          const best_price_url = typeof mb.best_price_url === 'string' ? mb.best_price_url : '';
+          return {
+            id,
+            name,
+            brand,
+            price,
+            image,
+            rating,
+            socket,
+            formFactor,
+            best_price_url,
+          };
+        });
         setMotherboards(motherboards);
       })
       .catch(() => setErrorMotherboards('Error al obtener placas base'))
@@ -538,16 +608,29 @@ const ComponentsPage = () => {
     fetch(`${apiUrl}/api/psus`)
       .then(res => res.ok ? res.json() : Promise.reject())
       .then((data) => {
-        const psus: PSU[] = data.map((psu: any) => ({
-          id: psu.id,
-          name: psu.name,
-          brand: psu.manufacturer || "",
-          price: psu.best_price !== undefined && psu.best_price !== null ? psu.best_price : (psu.raw_data?.price || psu.tdp || 0),
-          image: `${apiUrl}/images/PSU_IMG/${encodeURIComponent(psu.name)}.jpg`,
-          rating: psu.rating || 4.5,
-          wattage: psu.wattage || psu.tdp || 0,
-          best_price_url: psu.best_price_url ? psu.best_price_url : undefined,
-        }));
+        const psus: PSU[] = data.map((psu: Record<string, unknown>) => {
+          const id = typeof psu.id === 'string' ? psu.id : '';
+          const name = typeof psu.name === 'string' ? psu.name : '';
+          const brand = typeof psu.manufacturer === 'string' ? psu.manufacturer : '';
+          const best_price = typeof psu.best_price === 'number' ? psu.best_price : undefined;
+          const raw_data = typeof psu.raw_data === 'object' && psu.raw_data !== null ? psu.raw_data as { price?: number } : undefined;
+          const tdp = typeof psu.tdp === 'number' ? psu.tdp : 0;
+          const price = best_price !== undefined && best_price !== null ? best_price : (raw_data?.price ?? tdp ?? 0);
+          const image = `${apiUrl}/images/PSU_IMG/${encodeURIComponent(name)}.jpg`;
+          const rating = typeof psu.rating === 'number' ? psu.rating : 4.5;
+          const wattage = typeof psu.wattage === 'number' ? psu.wattage : tdp;
+          const best_price_url = typeof psu.best_price_url === 'string' ? psu.best_price_url : '';
+          return {
+            id,
+            name,
+            brand,
+            price,
+            image,
+            rating,
+            wattage,
+            best_price_url,
+          };
+        });
         setPsus(psus);
       })
       .catch(() => setErrorPsus('Error al obtener fuentes de poder'))
@@ -558,16 +641,29 @@ const ComponentsPage = () => {
     fetch(`${apiUrl}/api/cases`)
       .then(res => res.ok ? res.json() : Promise.reject())
       .then((data) => {
-        const cases: Case[] = data.map((c: any) => ({
-          id: c.id,
-          name: c.name,
-          brand: c.manufacturer || "",
-          price: c.best_price !== undefined && c.best_price !== null ? c.best_price : (c.raw_data?.price || c.tdp || 0),
-          image: `${apiUrl}/images/PC_CASE_IMG/${encodeURIComponent(c.name)}.jpg`,
-          rating: c.rating || 4.5,
-          formFactor: c.formFactor || "-",
-          best_price_url: c.best_price_url ? c.best_price_url : undefined,
-        }));
+        const cases: Case[] = data.map((c: Record<string, unknown>) => {
+          const id = typeof c.id === 'string' ? c.id : '';
+          const name = typeof c.name === 'string' ? c.name : '';
+          const brand = typeof c.manufacturer === 'string' ? c.manufacturer : '';
+          const best_price = typeof c.best_price === 'number' ? c.best_price : undefined;
+          const raw_data = typeof c.raw_data === 'object' && c.raw_data !== null ? c.raw_data as { price?: number } : undefined;
+          const tdp = typeof c.tdp === 'number' ? c.tdp : 0;
+          const price = best_price !== undefined && best_price !== null ? best_price : (raw_data?.price ?? tdp ?? 0);
+          const image = `${apiUrl}/images/PC_CASE_IMG/${encodeURIComponent(name)}.jpg`;
+          const rating = typeof c.rating === 'number' ? c.rating : 4.5;
+          const formFactor = typeof c.formFactor === 'string' ? c.formFactor : '-';
+          const best_price_url = typeof c.best_price_url === 'string' ? c.best_price_url : '';
+          return {
+            id,
+            name,
+            brand,
+            price,
+            image,
+            rating,
+            formFactor,
+            best_price_url,
+          };
+        });
         setCases(cases);
       })
       .catch(() => setErrorCases('Error al obtener gabinetes'))
@@ -578,16 +674,29 @@ const ComponentsPage = () => {
     fetch(`${apiUrl}/api/coolers`)
       .then(res => res.ok ? res.json() : Promise.reject())
       .then((data) => {
-        const coolers: Cooler[] = data.map((cooler: any) => ({
-          id: cooler.id,
-          name: cooler.name,
-          brand: cooler.manufacturer || "",
-          price: cooler.best_price !== undefined && cooler.best_price !== null ? cooler.best_price : (cooler.raw_data?.price || cooler.tdp || 0),
-          image: `${apiUrl}/images/CPU_COOLER_IMG/${encodeURIComponent(cooler.name)}.jpg`,
-          rating: cooler.rating || 4.5,
-          type: cooler.type || "-",
-          best_price_url: cooler.best_price_url ? cooler.best_price_url : undefined,
-        }));
+        const coolers: Cooler[] = data.map((cooler: Record<string, unknown>) => {
+          const id = typeof cooler.id === 'string' ? cooler.id : '';
+          const name = typeof cooler.name === 'string' ? cooler.name : '';
+          const brand = typeof cooler.manufacturer === 'string' ? cooler.manufacturer : '';
+          const best_price = typeof cooler.best_price === 'number' ? cooler.best_price : undefined;
+          const raw_data = typeof cooler.raw_data === 'object' && cooler.raw_data !== null ? cooler.raw_data as { price?: number } : undefined;
+          const tdp = typeof cooler.tdp === 'number' ? cooler.tdp : 0;
+          const price = best_price !== undefined && best_price !== null ? best_price : (raw_data?.price ?? tdp ?? 0);
+          const image = `${apiUrl}/images/CPU_COOLER_IMG/${encodeURIComponent(name)}.jpg`;
+          const rating = typeof cooler.rating === 'number' ? cooler.rating : 4.5;
+          const type = typeof cooler.type === 'string' ? cooler.type : '-';
+          const best_price_url = typeof cooler.best_price_url === 'string' ? cooler.best_price_url : '';
+          return {
+            id,
+            name,
+            brand,
+            price,
+            image,
+            rating,
+            type,
+            best_price_url,
+          };
+        });
         setCoolers(coolers);
       })
       .catch(() => setErrorCoolers('Error al obtener refrigeración'))

@@ -1,5 +1,7 @@
+
 "use client"
 import React from 'react';
+import Image from 'next/image';
 import './about.css';
 
 const AcercaDe = () => {
@@ -34,7 +36,7 @@ const AcercaDe = () => {
       <section className="about-hero-section">
         <div className="about-hero-wrapper">
           <div className="about-hero-image">
-            <img 
+            <Image 
               src="/images/aboutBG.png"
               alt="Componentes de PC - Procesadores, GPU, Memoria RAM y más" 
               className="about-hero-img"

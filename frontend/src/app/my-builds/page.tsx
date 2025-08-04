@@ -58,8 +58,12 @@ export default function MyBuildsPage() {
       if (!res.ok) throw new Error("No se pudieron cargar los builds");
       const data = await res.json();
       setBuilds(data);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Error desconocido');
+      }
     } finally {
       setLoading(false);
     }
@@ -80,8 +84,12 @@ export default function MyBuildsPage() {
       });
       if (!res.ok) throw new Error("No se pudo eliminar el build");
       setBuilds((prev) => prev.filter((b) => b.id !== id));
-    } catch (err: any) {
-      alert(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        alert(err.message);
+      } else {
+        alert('Error desconocido');
+      }
     } finally {
       setDeletingId(null);
     }
