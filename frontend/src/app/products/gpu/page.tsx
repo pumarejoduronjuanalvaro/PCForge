@@ -45,9 +45,9 @@ const fetchGpusFromApi = async (): Promise<GPU[]> => {
     const name = typeof item.name === 'string' ? item.name : '';
     const brand = typeof item.manufacturer === 'string' ? item.manufacturer : '';
     const rawData = typeof item.raw_data === 'object' && item.raw_data !== null ? item.raw_data as { price?: number } : undefined;
-    const price = item.best_price !== undefined && item.best_price !== null
-      ? Number(item.best_price)
-      : (rawData?.price ?? 0);
+    // const price = item.best_price !== undefined && item.best_price !== null
+    //   ? Number(item.best_price)
+    //   : (rawData?.price ?? 0); // Removed unused variable
     return {
       id: typeof item.id === 'string' ? item.id : '',
       name,
