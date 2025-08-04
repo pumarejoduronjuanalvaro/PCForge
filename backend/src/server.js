@@ -23,6 +23,10 @@ const adminRoutes = require('./routes/admin.routes');
 const app = express();
 const prisma = new PrismaClient();
 
+// CONFIGURACIÓN PARA RENDER - Agregar ANTES de usar rate limiting
+// Render usa proxies reversos, por lo que es necesario confiar en ellos
+app.set('trust proxy', 1); // Confía en el primer proxy (Render)
+
 // Middlewares globales
 app.use(cors(securityConfig.cors));
 app.use(cookieParser());
