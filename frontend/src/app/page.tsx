@@ -1,103 +1,242 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useEffect } from 'react';
+import { motion } from 'framer-motion';
+import './homepage.css';
+import { Button } from '@/components/ui/button';
+import { UserPlus, Cpu, CheckCircle2, User, Save } from 'lucide-react';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
+
+export default function HomePage() {
+  useEffect(() => {
+    document.title = 'Inicio | PCForge';
+  }, []);
+  const settings = {
+    dots: true,
+    arrows: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 6000,
+  };
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="homepage">
+      {/* Hero Section */}
+      <section className="hero-section">
+        <div className="hero-content">
+          <div className="hero-text">
+            <h1 className="hero-title">
+              Consigue Tu
+              <br />
+              PC Perfecta
+              <br />
+              Hoy!
+            </h1>
+            <p className="hero-subtitle">
+              Elige de Nuestra Selección Pre-Construida o Construye
+              Tu Propia PC!
+            </p>
+            <div className="hero-buttons">
+              <Button className='btn-primary'>Pre-Construida</Button>
+              <Button className="btn-secondary">Construye Tu PC</Button>
+            </div>
+          </div>
+          
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        
+      </section>
+
+      {/* How It Works Section */}
+      <section className="how-it-works-section" >
+        <motion.div className="how-it-works-content" initial={{ opacity: 0, x: 1000 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false }} transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}>
+          <h2 className="section-title-white">¿Cómo Funciona?</h2>
+          <p className="section-subtitle">Arma tu PC perfecta en 4 simples pasos</p>
+          <div className="steps-grid">
+            <div className="step-card">
+              <div className="step-number">1</div>
+              <UserPlus className="step-icon text-primary w-8 h-8" />
+              <h3>Regístrate o Entra</h3>
+              <p>Crea tu cuenta o entra como invitado para comenzar</p>
+            </div>
+            <div className="step-card">
+              <div className="step-number">2</div>
+              <Cpu className="step-icon text-primary w-8 h-8" />
+              <h3>Elegí tus Componentes</h3>
+              <p>Selecciona de nuestra amplia gama de componentes de calidad</p>
+            </div>
+            <div className="step-card">
+              <div className="step-number">3</div>
+              <CheckCircle2 className="step-icon text-primary w-8 h-8" />
+              <h3>Verificá Compatibilidad</h3>
+              <p>Nuestro sistema verifica automáticamente la compatibilidad</p>
+            </div>
+            <div className="step-card">
+              <div className="step-number">4</div>
+
+                <Save className="step-icon text-primary w-6 h-6" />
+
+              <h3>Visualizá y Guardá</h3>
+              <p>Ve tu build en 3D y guárdala para comprar después</p>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Call to Action Section */}
+
+
+      {/* Featured Builds Section */}
+      <section className="builds-section">
+        <div className="builds-content">
+          <div className="builds-header">
+            <h2 className="section-title-black">Builds Destacadas</h2>
+            <p className="section-subtitle">Configuraciones populares para inspirarte</p>
+          </div>
+          <div className="builds-grid">
+            <div className="build-card gaming">
+              <div className="build-image">
+                <div className="build-overlay">
+                  <span className="build-category">GAMING</span>
+                </div>
+              </div>
+              <div className="build-info">
+                <h3>PC Gaming Elite</h3>
+                <p>RTX 4070 • Ryzen 7 7700X • 32GB RAM</p>
+                <div className="build-price">$52,000</div>
+                <button className="build-btn">Ver Build</button>
+              </div>
+            </div>
+            <div className="build-card design">
+              <div className="build-image">
+                <div className="build-overlay">
+                  <span className="build-category">DISEÑO</span>
+                </div>
+              </div>
+              <div className="build-info">
+                <h3>Workstation Creativa</h3>
+                <p>RTX 4060 Ti • Intel i7-13700 • 64GB RAM</p>
+                <div className="build-price">$68,000</div>
+                <button className="build-btn">Ver Build</button>
+              </div>
+            </div>
+            <div className="build-card programming">
+              <div className="build-image">
+                <div className="build-overlay">
+                  <span className="build-category">CÓDIGO</span>
+                </div>
+              </div>
+              <div className="build-info">
+                <h3>Developer Pro</h3>
+                <p>GTX 1660 Super • Ryzen 5 7600 • 32GB RAM</p>
+                <div className="build-price">$35,000</div>
+                <button className="build-btn">Ver Build</button>
+              </div>
+            </div>
+            <div className="build-card budget">
+              <div className="build-image">
+                <div className="build-overlay">
+                  <span className="build-category">ECONÓMICA</span>
+                </div>
+              </div>
+              <div className="build-info">
+                <h3>PC Entrada</h3>
+                <p>GTX 1650 • Ryzen 5 5600G • 16GB RAM</p>
+                <div className="build-price">$22,000</div>
+                <button className="build-btn">Ver Build</button>
+              </div>
+            </div>
+            <div className="build-card streaming">
+              <div className="build-image">
+                <div className="build-overlay">
+                  <span className="build-category">STREAMING</span>
+                </div>
+              </div>
+              <div className="build-info">
+                <h3>Stream Master</h3>
+                <p>RTX 4070 Super • Intel i9-13900K • 32GB RAM</p>
+                <div className="build-price">$75,000</div>
+                <button className="build-btn">Ver Build</button>
+              </div>
+            </div>
+            <div className="build-card office">
+              <div className="build-image">
+                <div className="build-overlay">
+                  <span className="build-category">OFICINA</span>
+                </div>
+              </div>
+              <div className="build-info">
+                <h3>Office Pro</h3>
+                <p>Integrados • Intel i5-13400 • 16GB RAM</p>
+                <div className="build-price">$18,000</div>
+                <button className="build-btn">Ver Build</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="testimonials-section">
+      <div className="testimonials-content">
+        <h2 className="section-title-black">Lo Que Dicen Nuestros Usuarios</h2>
+        <Slider {...settings} className="testimonials-carousel">
+          <div className="testimonial-card">
+            <div className="testimonial-stars">★★★★★</div>
+            <p>&quot;PCForge me ayudó a armar mi primera PC gaming. La verificación de compatibilidad me ahorró muchos dolores de cabeza.&quot;</p>
+            <div className="testimonial-author">
+              <User className="author-avatar" />
+              <div className="author-info">
+                <span className="author-name">Carlos M.</span>
+                <span className="author-title">Gamer</span>
+              </div>
+            </div>
+          </div>
+          <div className="testimonial-card">
+            <div className="testimonial-stars">★★★★★</div>
+            <p>&quot;Como diseñador necesitaba una workstation potente. El equipo de PCForge me recomendó la configuración perfecta para mi presupuesto.&quot;</p>
+            <div className="testimonial-author">
+              <User className="author-avatar" />
+              <div className="author-info">
+                <span className="author-name">María L.</span>
+                <span className="author-title">Diseñadora Gráfica</span>
+              </div>
+            </div>
+          </div>
+          <div className="testimonial-card">
+            <div className="testimonial-stars">★★★★★</div>
+            <p>&quot;La visualización 3D es increíble. Pude ver exactamente cómo se vería mi PC antes de comprarla. Definitivamente recomendado.&quot;</p>
+            <div className="testimonial-author">
+              <User className="author-avatar" />
+              <div className="author-info">
+                <span className="author-name">Roberto S.</span>
+                <span className="author-title">Programador</span>
+              </div>
+            </div>
+          </div>
+        </Slider>
+      </div>
+    </section>
+
+      {/* Final CTA Section */}
+    <div className="final-cta-wrapper">
+      <section className="final-cta-section">
+        <div className="final-cta-content">
+          <h2>¿Listo para Empezar?</h2>
+          <p>Armá tu PC perfecta ahora mismo y lleva tu experiencia al siguiente nivel</p>
+          <button className="cta-button">Configurar Ahora</button>
+          <div className="cta-features">
+            <span>✓ Gratis y sin compromiso</span>
+            <span>✓ Verificación automática</span>
+            <span>✓ Soporte experto</span>
+          </div>
+        </div>
+      </section>
+    </div>  
+    </main>
   );
 }

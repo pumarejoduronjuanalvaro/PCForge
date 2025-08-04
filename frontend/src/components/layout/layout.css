@@ -1,0 +1,32 @@
+/* =============================================================================
+   LAYOUT PRINCIPAL - Navbar y Footer translúcidos sobre el contenido
+   ============================================================================= */
+
+/* Reset y configuración base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* Contenedor principal */
+.app-container {
+  z-index: -1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Contenido principal - SIN imagen de fondo */
+.main-content {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Las páginas individuales tendrán sus propias imágenes de fondo */
+}
+
