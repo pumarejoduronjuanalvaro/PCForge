@@ -340,6 +340,36 @@ const serializeBuildToUrl = (build: PCBuild) => {
   });
   return `${window.location.origin}/pc-build?${params.toString()}`;
 };
+// Deserialización del build desde la URL
+const deserializeBuildFromUrl = (
+  params: URLSearchParams,
+  componentLists: { [key in ComponentCategory]: Component[] }
+): PCBuild => {
+  const build: PCBuild = {
+    cpu: null,
+    gpu: null,
+    ram: null,
+    motherboard: null,
+    psu: null,
+    case: null,
+    storage: null,
+    cooler: null,
+    totalPrice: 0,
+  };
+  Object.keys(categoryNames).forEach((cat) => {
+    const id = params.get(cat);
+    if (id) {
+      const comp = componentLists[cat as ComponentCategory].find(c => c.id === id);
+      if (comp) {
+        build[cat as ComponentCategory] = comp;
+      }
+    }
+  });
+  build.totalPrice = Object.values(build)
+    .filter((comp): comp is Component => comp !== null && typeof comp === "object")
+    .reduce((sum, comp) => sum + (comp.best_price !== undefined ? comp.best_price : comp.price), 0);
+  return build;
+};
 
 // Main Component
 const PCConfigurator = () => {
