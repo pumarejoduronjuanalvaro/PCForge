@@ -534,10 +534,31 @@ const [buildModalError, setBuildModalError] = useState<string | null>(null);
           setEditingBuildId(null);
         });
     } else {
-      // Si no hay buildId, limpiar builder
+      // Si no hay buildId, // Si no hay buildId, intentar deserializar desde la URL
+      let hasComponentParams = false;
+      Object.keys(categoryNames).forEach(cat => {
+        if (searchParams?.get(cat)) hasComponentParams = true;
+      });
+      if (hasComponentParams) {
+        const build = deserializeBuildFromUrl(searchParams!, {
+          cpu: cpus,
+          gpu: gpus,
+          ram: rams,
+          motherboard: motherboards,
+          psu: psus,
+          case: cases,
+          storage: storages,
+          cooler: coolers,
+        });
+        setCurrentBuild(build);
+        setEditingBuildId(null);
+        validateBuildBackend(build).then(setBackendIssues);
+      } else {
+        // Si no hay buildId ni parámetros, limpiar builder
       setEditingBuildId(null);
       setCurrentBuild(initialBuild);
       setBackendIssues([]);
+      }
     }
     // eslint-disable-next-line
   }, [cpus, gpus, rams, motherboards, psus, cases, storages, coolers]);
